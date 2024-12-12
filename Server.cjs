@@ -1,3 +1,4 @@
+// Connections
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -134,10 +135,10 @@ app.post('/createPost', async (req, res) => {
 // 5. List posts from MongoDB
 app.get('/listPosts', async (req, res) => {
     try {
-        const baseDeDatos = client.db("examen2ux");
-        const coleccion = baseDeDatos.collection("Post");
+        const db = client.db("examen2ux");
+        const collection = db.collection("Post");
 
-        const response = await coleccion.find({}).toArray();
+        const response = await collection.find({}).toArray();
 
         res.status(200).send({
             resultado: response,
@@ -154,10 +155,10 @@ app.get('/listPosts', async (req, res) => {
 // 6. Edit Post in MongoDB
 app.put('/editPost/:id', async (req, res) => {
     try {
-        const baseDeDatos = client.db("examen2ux");
-        const coleccion = baseDeDatos.collection("Post");
+        const db = client.db("examen2ux");
+        const collection = db.collection("Post");
 
-        const response = await coleccion.updateOne(
+        const response = await collection.updateOne(
             {
                 _id: new ObjectId(req.params.id)
             },
@@ -184,10 +185,10 @@ app.put('/editPost/:id', async (req, res) => {
 // 7. Delete Post in MongoDB
 app.delete('/deletePost/:id', async (req, res) => {
     try {
-        const baseDeDatos = client.db("examen2ux");
-        const coleccion = baseDeDatos.collection("Post");
+        const db = client.db("examen2ux");
+        const collection = db.collection("Post");
 
-        const response = await coleccion.deleteOne({
+        const response = await collection.deleteOne({
             _id: new ObjectId(req.params.id)
         });
 
